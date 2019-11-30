@@ -1,0 +1,22 @@
+CC=mpicc -Wall -O3 -Wextra -g
+
+CFLAGS=-Iinc
+
+LDFLAGS=-lm 
+
+BIN=projet_HPC_Ajanohoun_Ould_Amer
+
+all : $(BIN)
+
+% : %.c
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+clean :
+	rm -f $(BIN) *.o *~
+
+exec : $(BIN)
+	mpirun --display-map --map-by node -n 8 ./$(BIN)
+
+
+
+
