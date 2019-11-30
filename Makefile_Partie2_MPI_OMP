@@ -1,0 +1,22 @@
+CC=mpicc -Wall -O3 -Wextra -g -fopenmp
+
+CFLAGS=-Iinc
+
+LDFLAGS=-lm 
+
+BIN=pathtracer_HPC_Sans_Exclusion_Mutuelle_OMP
+
+all : $(BIN)
+
+% : %.c
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+clean :
+	rm -f $(BIN) *.o *~
+
+exec : $(BIN)
+	mpirun --display-map --map-by node -n 4 ./$(BIN)
+
+
+
+
